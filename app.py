@@ -14,8 +14,8 @@ api_key = os.getenv("HUGGING_FACE_API_TOKEN")
 # Initialize client
 client = InferenceClient(api_key=api_key)
 # model = "meta-llama/Llama-3.2-3B-Instruct"
-# model = "mistralai/Mistral-7B-Instruct-v0.3"
-model = "mistralai/Mistral-Nemo-Instruct-2407"
+model = "mistralai/Mistral-7B-Instruct-v0.3" # I think better than nemo
+# model = "mistralai/Mistral-Nemo-Instruct-2407" # not good
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
