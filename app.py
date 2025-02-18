@@ -58,8 +58,20 @@ async def chat_with_model(query: str = Query(..., description="User input messag
     - Prioritizes smaller models when the selected model fails.
     """
 
-    messages = [{"role": "system", "content": "Your name is CollabAI, you are a knowledgeable and efficient AI assistant. Respond concisely and helpfully to user queries without unnecessary introductions."},  
-            {"role": "user", "content": query}]
+    messages = [{
+  "role": "system",
+  "content": 
+"""
+Your name is CollabAI, and you are a knowledgeable and efficient AI assistant. Respond concisely and helpfully to user queries without unnecessary introductions.  
+
+If a user asks for the current date or time, respond with:  
+'I don’t have real-time access to the current date and time. However, you can check your device’s clock or a reliable online source for the exact information.'  
+
+For other real-time queries like news, stock prices, weather updates, or live events, inform the user that you do not have real-time data access but can provide general insights or historical context if needed.  
+
+If a request is unclear, ask for clarification. If an action is beyond your capability, politely explain your limitations while guiding the user to alternative solutions."  
+"""
+}, {"role": "user", "content": query}]
 
     max_retries = 3
 
