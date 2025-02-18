@@ -23,6 +23,10 @@ app = FastAPI(title="CollabAI Chat API", version="1.0")
 async def home():
     return "Chat API is running!"
 
+@app.head("/health")
+async def home():
+    return "Healthy"
+
 @app.post("/chat/")
 async def chat_with_model(query: str = Query(..., description="User input message")):
     """
