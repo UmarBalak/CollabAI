@@ -1,4 +1,6 @@
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Response
+from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from huggingface_hub import InferenceClient
 import os
 import logging
@@ -19,13 +21,31 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(title="CollabAI Chat API", version="1.0")
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Replace with your frontend URL in production
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["*"],
+)
+
 @app.get("/")
 async def home():
     return "Chat API is running!"
 
+@app.get("/health", response_class=JSONResponse)
+async def health_check():
+    """
+    Health check endpoint to verify service availability.
+    """
+    return {"status": "healthy"}
+
 @app.head("/health")
-async def home():
-    return "Healthy"
+async def health_check_monitor():
+    """
+    Health check endpoint to verify service availability.
+    """
+    return Response(status_code=200)
 
 @app.post("/chat/")
 async def chat_with_model(query: str = Query(..., description="User input message")):
