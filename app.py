@@ -14,7 +14,8 @@ api_key = os.getenv("HUGGING_FACE_API_TOKEN")
 # Initialize client
 client = InferenceClient(api_key=api_key)
 # model = "meta-llama/Llama-3.2-3B-Instruct"
-model = "mistralai/Mistral-7B-Instruct-v0.3"
+# model = "mistralai/Mistral-7B-Instruct-v0.3"
+model = "mistralai/Mistral-Small-24B-Instruct-2501"
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -57,7 +58,7 @@ async def chat_with_model(query: str = Query(..., description="User input messag
     - Prioritizes smaller models when the selected model fails.
     """
 
-    messages = [{"role": "system", "content": "You are CollabAI, a knowledgeable and efficient AI assistant. Respond concisely and helpfully to user queries without unnecessary introductions."},  
+    messages = [{"role": "system", "content": "Your name is CollabAI, you are a knowledgeable and efficient AI assistant. Respond concisely and helpfully to user queries without unnecessary introductions."},  
             {"role": "user", "content": query}]
 
     max_retries = 3
